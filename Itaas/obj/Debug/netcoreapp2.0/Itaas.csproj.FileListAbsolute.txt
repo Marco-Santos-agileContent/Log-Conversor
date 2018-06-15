@@ -1,0 +1,11 @@
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\bin\Debug\netcoreapp2.0\Itaas.deps.json
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\bin\Debug\netcoreapp2.0\Itaas.runtimeconfig.json
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\bin\Debug\netcoreapp2.0\Itaas.runtimeconfig.dev.json
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\bin\Debug\netcoreapp2.0\Itaas.dll
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\bin\Debug\netcoreapp2.0\Itaas.pdb
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.csprojResolveAssemblyReference.cache
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.csproj.CoreCompileInputs.cache
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.AssemblyInfoInputs.cache
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.AssemblyInfo.cs
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.dll
+C:\Users\marco.santos\Documents\Itaass\Itaas\Itaas\obj\Debug\netcoreapp2.0\Itaas.pdb
