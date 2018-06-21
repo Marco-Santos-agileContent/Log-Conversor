@@ -24,7 +24,7 @@ namespace ItaasSolution
                 Environment.Exit(0);
             }
 
-            string targerPath = treatment.VerifyFileExtension(args[2]);
+            string targerPath = treatment.VerifyFileExtension(args[1]);
 
             if (treatment.VerifyWhereUserWantToSave(targerPath))
             {
