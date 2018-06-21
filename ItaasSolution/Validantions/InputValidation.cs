@@ -62,12 +62,21 @@ namespace Itaas.Validations
 
         public string VerifyFileExtension(string targetPath)
         {
-            if (Path.GetExtension(targetPath) != ".txt" && Path.GetExtension(targetPath) != ".csv")
+            if (Path.GetExtension(targetPath) == "")
             {
-                string newPath = Path.GetFullPath(targetPath);
-                newPath = newPath + ".txt";
-                return newPath;
+                Console.WriteLine("The File you want to save have no extension\n" +
+                                  "Do you want to keep without extension? Y/N");
+
+                string userOption = Console.ReadLine();
+                if (userOption.Equals("n", StringComparison.InvariantCultureIgnoreCase) || userOption.Equals("no", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    string newPath = Path.GetFullPath(targetPath);
+                    newPath = newPath + ".txt";
+                    return newPath;
+                }
+                return targetPath;
             }
+
             return targetPath;
         }
 

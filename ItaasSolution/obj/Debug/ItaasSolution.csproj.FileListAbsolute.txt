@@ -1,6 +1,0 @@
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\bin\Debug\ItaasSolution.exe.config
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\bin\Debug\ItaasSolution.exe
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\bin\Debug\ItaasSolution.pdb
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\obj\Debug\ItaasSolution.csproj.CoreCompileInputs.cache
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\obj\Debug\ItaasSolution.exe
-C:\Users\marco.santos\Documents\Itaass\Itaas\ItaasSolution\obj\Debug\ItaasSolution.pdb

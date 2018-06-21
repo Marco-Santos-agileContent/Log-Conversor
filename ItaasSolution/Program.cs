@@ -16,6 +16,14 @@ namespace ItaasSolution
             LogGenerator convert = new LogGenerator();
             InputValidation treatment = new InputValidation();
 
+            if (args.Length < 2)
+            {
+                Console.WriteLine("There´s no parameter for URL or Target Path");
+                Console.WriteLine("The application will be closed, press anything to continue");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+
             string targerPath = treatment.VerifyFileExtension(args[2]);
 
             if (treatment.VerifyWhereUserWantToSave(targerPath))
