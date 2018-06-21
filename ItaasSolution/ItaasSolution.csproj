@@ -50,7 +50,6 @@
     <Compile Include="Validantions\InputValidation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />

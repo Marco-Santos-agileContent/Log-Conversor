@@ -9,7 +9,7 @@ namespace Itaas.MainMethods
         public string ConvertToCDNFormat(string line)
         {
 
-            string[] agoraFormat = new string[13];
+            var agoraFormat = new string[13];
             string CDNFormat = "\"MINHA CDN\"";
 
             agoraFormat = line.Split('|', '/', '.', '"', ' ');
@@ -44,10 +44,11 @@ namespace Itaas.MainMethods
             }
 
 
+
             return CDNFormat;
         }
 
-#region Auxiliar
+
         public bool ValidateLineInPattern(string[] converted)
         {
             int number = 0;
@@ -59,6 +60,6 @@ namespace Itaas.MainMethods
             return true;
         }
 
-#endregion
+
     }
 }

@@ -45,7 +45,7 @@ namespace ItaasSolution
                 Environment.Exit(0);
             }
 
-            if (!treatment.VerifyURLIsValid(args[1]))
+            if (!treatment.VerifyURLIsValid(args[0]))
             {
                 Console.WriteLine("The URL is not valid. Please inform a valid one");
                 Console.WriteLine("The application will be closed, press anything to continue");
@@ -54,7 +54,7 @@ namespace ItaasSolution
             }
 
 
-            if (convert.GenerateCDNLog(args[1], targerPath))
+            if (convert.GenerateCDNLog(args[0], targerPath))
             {
                 Console.WriteLine("sucessefuly converted");
             }
