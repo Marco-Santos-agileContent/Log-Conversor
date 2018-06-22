@@ -12,11 +12,12 @@ namespace Itaas.MainMethods
         public bool GenerateCDNLog(string sourceUrl, string targetPath)
         {
 
-            StreamWriter writer = File.AppendText(targetPath);
-            writer.WriteLine("#Version: 1.0");
-            writer.WriteLine("#Date: " + DateTime.Now);
-            writer.WriteLine("#Fields: provider http-method status-code uri-path time-taken response-size");
-            writer.WriteLine("cache-status");
+            StreamWriter fileWriter = File.AppendText(targetPath);
+            fileWriter.WriteLine("#Version: 1.0");
+            fileWriter.WriteLine("#Date: " + DateTime.Now);
+            fileWriter.WriteLine("#Fields: provider http-method status-code uri-path time-taken response-size");
+            fileWriter.WriteLine("cache-status");
+
             try
             {
                 var client = new WebClient();
@@ -29,16 +30,17 @@ namespace Itaas.MainMethods
                     {
                         while ((line = reader.ReadLine()) != null)
                         {
-                            writer.WriteLine(ConvertToCDNFormat(line));
+                            fileWriter.WriteLine(ConvertToCDNFormat(line));
                         }
+                        fileWriter.WriteLine("################################################################");
+                        Console.WriteLine($"Saved At {Path.GetFullPath(targetPath)}");
                     }
                     catch
                     {
-                        writer.Close();
+                        fileWriter.Close();
                         Console.WriteLine("Error while writing the File");
                         return false;
                     }
-
                 }
             }
             catch
@@ -47,7 +49,7 @@ namespace Itaas.MainMethods
                 return false;
             }
 
-            writer.Close();
+            fileWriter.Close();
             return true;
 
         }

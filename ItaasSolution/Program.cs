@@ -24,21 +24,7 @@ namespace ItaasSolution
                 Environment.Exit(0);
             }
 
-            string targerPath = treatment.VerifyFileExtension(args[1]);
-
-            if (treatment.VerifyWhereUserWantToSave(targerPath))
-            {
-                targerPath = Path.Combine(@"C:\\ItaasCDNLogConvertor", targerPath);
-            }
-
-            if (!treatment.VerifyPathIsValid(targerPath))
-            {
-                Console.WriteLine("The application will be closed, press anything to continue");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-
-            if (!treatment.VerifyPathExists(targerPath))
+            if (!treatment.VerifyPathIsValid(args[1]))
             {
                 Console.WriteLine("The application will be closed, press anything to continue");
                 Console.ReadLine();
@@ -53,8 +39,23 @@ namespace ItaasSolution
                 Environment.Exit(0);
             }
 
+            if (!treatment.VerifyPathExists(args[1]))
+            {
+                Console.WriteLine("The application will be closed, press anything to continue");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
 
-            if (convert.GenerateCDNLog(args[0], targerPath))
+            args[1] = treatment.VerifyFileExtension(args[1]);
+
+
+            if (treatment.VerifyWhereUserWantToSave(args[1]))
+            {
+                args[1] = Path.Combine(@"C:\\ItaasCDNLogConvertor", args[1]);
+            }
+            
+
+            if (convert.GenerateCDNLog(args[0], args[1]))
             {
                 Console.WriteLine("sucessefuly converted");
             }

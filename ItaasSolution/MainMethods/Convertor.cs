@@ -15,35 +15,23 @@ namespace Itaas.MainMethods
             agoraFormat = line.Split('|', '/', '.', '"', ' ');
 
             if (!ValidateLineInPattern(agoraFormat))
-            {
                 return "Line Out of pattern";
-            }
-
-
+           
+            
             if (agoraFormat[7] != "txt")
             {
-                CDNFormat += " " + agoraFormat[4] + " " + agoraFormat[1] +
-                    " " + "/" + agoraFormat[6] + " " + agoraFormat[11] + " " +
-                    agoraFormat[0] + " " + agoraFormat[2];
-
-            }
-            else if (agoraFormat[2] == "INVALIDATE")
-            {
-                agoraFormat[2] = "REFRESH_HIT";
-                CDNFormat += " " + agoraFormat[4] + " " + agoraFormat[1] + " " + "/" +
-                    agoraFormat[6] + "." + agoraFormat[7] + " " +
-                     "" + agoraFormat[12] + " " + agoraFormat[0] + " " + agoraFormat[2];
-
+                CDNFormat += string.Format(" {0} {1} /{2} {3} {4} {5}",
+                    agoraFormat[4], agoraFormat[1], agoraFormat[6], agoraFormat[11], agoraFormat[0], agoraFormat[2]);
             }
             else
             {
-                CDNFormat += " " + agoraFormat[4] + " " + agoraFormat[1] + " " + "/" +
-                    agoraFormat[6] + "." + agoraFormat[7] + " " +
-                    "" + agoraFormat[12] + " " + agoraFormat[0] + " " + agoraFormat[2];
+                if (agoraFormat[2] == "INVALIDATE")
+                    agoraFormat[2] = "REFRESH_HIT";
+
+                CDNFormat += string.Format(" {0} {1} /{2}.{3} {4} {5} {6}",
+                    agoraFormat[4], agoraFormat[1], agoraFormat[6], agoraFormat[7], agoraFormat[12], agoraFormat[0], agoraFormat[2]);
 
             }
-
-
 
             return CDNFormat;
         }
