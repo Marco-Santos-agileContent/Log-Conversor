@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Itaas.Validations
 {
-    public class InputValidation
+    public static class InputValidation
     {
-
-        public bool VerifyURLIsValid(string url)
+        public static bool VerifyUrl(string url)
         {
             Uri uriResult;
             bool result = Uri.TryCreate(url, UriKind.Absolute, out uriResult)
@@ -17,25 +16,9 @@ namespace Itaas.Validations
             return result;
         }
 
-        public bool VerifyWhereUserWantToSave(string targetPath)
+        public static Tuple<string, bool> VerifyPath(string targetPath)
         {
-            if(!Path.IsPathRooted(targetPath))
-            {
-                Console.WriteLine("The Path Informed is not root and the file will be saved in the program file\n" +
-                    "Do you want to save it in (C:)? Y/N");
-
-                string userOption = Console.ReadLine();
-                if (userOption.Equals("y",StringComparison.InvariantCultureIgnoreCase) || userOption.Equals("yes", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return true; 
-                }
-            }
-
-            return false;
-        }
-
-        public bool VerifyPathIsValid(string targetPath)
-        {
+            string errorMessage = "Created With Success.";
 
             try
             {
@@ -43,60 +26,35 @@ namespace Itaas.Validations
             }
             catch(PathTooLongException)
             {
-                Console.WriteLine("The path is too big. Please keep it under Windows's 260 max chars limit");
-                return false;
+                errorMessage = "The path is too big. Please keep it under Windows's 260 max chars limit.";
+                return Tuple.Create(errorMessage, false);
             }
             catch
             {
-                Console.WriteLine("There's a problem with the target Path");
+                errorMessage = "There's a problem with the target Path.";
+                return Tuple.Create(errorMessage, false);
             }
 
             if (targetPath == "")
             {
-                Console.WriteLine("Path Cannot be null");
-                return false;
-            }
-            
-            return true;
-        }
-
-        public string VerifyFileExtension(string targetPath)
-        {
-            if (Path.GetExtension(targetPath) == "")
-            {
-                Console.WriteLine("The File you want to save have no extension\n" +
-                                  "Do you want to keep without extension? Y/N");
-
-                string userOption = Console.ReadLine();
-                if (userOption.Equals("n", StringComparison.InvariantCultureIgnoreCase) || userOption.Equals("no", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    string newPath = Path.GetFullPath(targetPath);
-                    newPath = newPath + ".txt";
-                    return newPath;
-                }
-                return targetPath;
+                errorMessage = "Path Cannot be null";
+                return Tuple.Create(errorMessage, false);
             }
 
-            return targetPath;
-        }
-
-        public bool VerifyPathExists(string targetPath)
-        {
-        
             FileInfo fileInfo = new FileInfo(targetPath);
 
             if (!fileInfo.Exists && !Directory.Exists(targetPath))
             {
                 try { Directory.CreateDirectory(fileInfo.Directory.FullName); }
 
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    Console.WriteLine("The target Path does not exist, and it's not possible to create " + e);
-                    return false;
+                    errorMessage = "The target Path does not exist, and it's not possible to create.";
+                    return Tuple.Create(errorMessage, false);
                 }
             }
 
-            return true;
+            return Tuple.Create(errorMessage, true);
         }
     }
 }

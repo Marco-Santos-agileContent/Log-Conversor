@@ -15,9 +15,8 @@ namespace Itaas.MainMethods
             StreamWriter fileWriter = File.AppendText(targetPath);
             fileWriter.WriteLine("#Version: 1.0");
             fileWriter.WriteLine("#Date: " + DateTime.Now);
-            fileWriter.WriteLine("#Fields: provider http-method status-code uri-path time-taken response-size");
-            fileWriter.WriteLine("cache-status");
-
+            fileWriter.WriteLine("#Fields: provider http-method status-code uri-path time-taken response-size cache-status");
+        
             try
             {
                 var client = new WebClient();
@@ -32,8 +31,6 @@ namespace Itaas.MainMethods
                         {
                             fileWriter.WriteLine(ConvertToCDNFormat(line));
                         }
-                        fileWriter.WriteLine("################################################################");
-                        Console.WriteLine($"Saved At {Path.GetFullPath(targetPath)}");
                     }
                     catch
                     {
