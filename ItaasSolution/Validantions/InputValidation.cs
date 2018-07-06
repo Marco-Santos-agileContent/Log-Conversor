@@ -18,7 +18,7 @@ namespace Itaas.Validations
 
         public static Tuple<string, bool> VerifyPath(string targetPath)
         {
-            string errorMessage = "Created With Success.";
+            string errorMessage = "";
 
             try
             {

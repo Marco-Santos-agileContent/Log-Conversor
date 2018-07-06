@@ -15,15 +15,15 @@ namespace ItaasSolution
         {
             LogGenerator convert = new LogGenerator();
 
-            //if (args.Length < 2)
-            //{
-            //    Console.WriteLine("There´s no parameter for URL or Target Path");
-            //    Console.WriteLine("The application will be closed, press anything to continue");
-            //    Console.ReadLine();
-            //    Environment.Exit(0);
-            //}
+            if (args.Length < 2)
+            {
+                Console.WriteLine("There´s no parameter for URL or Target Path");
+                Console.WriteLine("The application will be closed, press anything to continue");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
 
-            var pathValidations = InputValidation.VerifyPath("");
+            var pathValidations = InputValidation.VerifyPath(args[1]);
 
             if (pathValidations.Item2 == false)
             {
