@@ -10,67 +10,65 @@ namespace Itaas.MainMethods
     public class LogGenerator
     {
         public string targetPath;
-        public string SourceUrl;
-
-        StreamWriter sw;
+        public string sourceUrl;
+        public StreamReader reader;
+        private StreamWriter _sw;
 
         public LogGenerator(string sourceUrl, string targetPath)
         {
-
+            this.targetPath = targetPath;
+            this.sourceUrl = sourceUrl;
+            _sw = File.AppendText(targetPath);
         }
 
         private void LogHeader()
         {
-            sw = File.AppendText(targetPath);
-            sw.WriteLine("#Version: 1.0");
-            sw.WriteLine("#Date: " + DateTime.Now);
-            sw.WriteLine("#Fields:    provider    http-method    status-code    uri-path    time-taken    response-size    cache-status");
+            _sw.WriteLine("#Version: 1.0");
+            _sw.WriteLine("#Date: " + DateTime.Now);
+            _sw.WriteLine("#Fields:    provider    http-method    status-code    uri-path    time-taken    response-size    cache-status");
         }
 
-        private void LogBody()
+        private string LogBody(string line)
         {
-            var convertor = new Convertor();
-            //convertor.ConvertToCDNFormat();
+            string convertedLine = Convertor.ConvertToCDNFormat(line);
+            return convertedLine;
         }
 
-        public bool GenerateCDNLog(string sourceUrl, string targetPath)
+        public void OpenConection()
         {
-        
             try
             {
                 var client = new WebClient();
-                using (var stream = client.OpenRead(sourceUrl))
-                using (var reader = new StreamReader(stream))
-                {
-                    string line;
-                    //reader.
+                var stream = client.OpenRead(sourceUrl);
+                reader = new StreamReader(stream);
+            }
+            catch
+            {
+                Helper.ErrorMessage = "There's a problem when reading the Url Text";
+            }
+        }
 
-                    try
-                    {
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            //sw.WriteLine(ConvertToCDNFormat(line));
-                        }
-                    }
-                    catch
-                    {
-                        sw.Close();
-                        Helper.ErrorMessage = "Error while writing the File";
-                        return false;
-                    }
+        public bool GenerateCDNLog()
+        {
+            LogHeader();
+            OpenConection();
+            string line;
+
+            try
+            {
+                while ((line = reader.ReadLine()) != null)
+                {
+                    _sw.WriteLine(LogBody(line));
                 }
             }
             catch
             {
-                Helper.ErrorMessage = "Error when connecting to the Url";
+                _sw.Close();
+                Helper.ErrorMessage = "Error while writing the File";
                 return false;
             }
-
-            sw.Close();
+            _sw.Close();
             return true;
         }
-
-
     }
 }
-

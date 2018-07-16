@@ -20,14 +20,11 @@ namespace ItaasSolution
             if (!Helper.Result)
             {
                 Console.Write(Helper.ErrorMessage);
-                Console.WriteLine("The application will be closed, press anything to continue");
-                Console.ReadLine();
                 Environment.Exit(0);
             }
 
             LogGenerator convert = new LogGenerator(args[0], args[1]);
-            convert.GenerateCDNLog(args[0], args[1]);
-
+            convert.GenerateCDNLog();
         }
     }
 }
