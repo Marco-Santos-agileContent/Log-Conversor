@@ -1,51 +1,37 @@
-﻿using System;
+﻿using ItaasSolution;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Itaas.MainMethods
 {
-    public partial class Convertor
+    public class Convertor
     {
+        string Provider { get; set; }
+        
         public string ConvertToCDNFormat(string line)
         {
+            List<string> SplitedFileds = line.Split('|').ToList();
+            SplitedFileds.AddRange(SplitedFileds[3].Split(' '));
 
-            var agoraFormat = new string[13];
-            string CDNFormat = "\"MINHA CDN\"";
+            LogProperties.CacheStatus = SplitedFileds[2];
+            LogProperties.HttpMethod = SplitedFileds[5];
+            LogProperties.ResponseSize = SplitedFileds[0];
+            LogProperties.StatusCode = SplitedFileds[1];
+            LogProperties.TimeTaken = SplitedFileds[4];
+            LogProperties.UriPath = SplitedFileds[6];
 
-            agoraFormat = line.Split('|', '/', '.', '"', ' ');
+            if (LogProperties.CacheStatus == "INVALIDATE")
+                LogProperties.CacheStatus = "REFRESH_HIT";
 
-            if (!ValidateLineInPattern(agoraFormat))
-                return "Line Out of pattern";
-           
+            LogProperties.TimeTaken = String.Format("{0:0}", float.Parse(LogProperties.TimeTaken, CultureInfo.InvariantCulture.NumberFormat));
+
+            string agoraFormat = $"{Provider}    {LogProperties.HttpMethod}    {LogProperties.StatusCode}" +
+                $"    {LogProperties.UriPath}    {LogProperties.TimeTaken}    {LogProperties.ResponseSize}    {LogProperties.CacheStatus}";
             
-            if (agoraFormat[7] != "txt")
-            {
-                CDNFormat += string.Format(" {0} {1} /{2} {3} {4} {5}",
-                    agoraFormat[4], agoraFormat[1], agoraFormat[6], agoraFormat[11], agoraFormat[0], agoraFormat[2]);
-            }
-            else
-            {
-                if (agoraFormat[2] == "INVALIDATE")
-                    agoraFormat[2] = "REFRESH_HIT";
-
-                CDNFormat += string.Format(" {0} {1} /{2}.{3} {4} {5} {6}",
-                    agoraFormat[4], agoraFormat[1], agoraFormat[6], agoraFormat[7], agoraFormat[12], agoraFormat[0], agoraFormat[2]);
-
-            }
-
-            return CDNFormat;
+            return agoraFormat;
         }
-
-
-        public bool ValidateLineInPattern(string[] converted)
-        {
-            int number = 0;
-
-            if (!Int32.TryParse(converted[0], out number) || !Int32.TryParse(converted[1], out number) || !Int32.TryParse(converted[12], out number) ||
-                Int32.TryParse(converted[2], out number) || Int32.TryParse(converted[4], out number) || Int32.TryParse(converted[6], out number) ||
-                    Int32.TryParse(converted[7], out number)) return false;
-
-            return true;
-        }
-
 
     }
 }

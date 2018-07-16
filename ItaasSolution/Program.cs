@@ -1,9 +1,11 @@
 ﻿using Itaas.MainMethods;
-using Itaas.Validations;
+using ItaasSolution.Validations;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,39 +15,19 @@ namespace ItaasSolution
     {
         static void Main(string[] args)
         {
-            LogGenerator convert = new LogGenerator();
+            Helper.VerifyInputs(args);
 
-            if (args.Length < 2)
+            if (!Helper.Result)
             {
-                Console.WriteLine("There´s no parameter for URL or Target Path");
+                Console.Write(Helper.ErrorMessage);
                 Console.WriteLine("The application will be closed, press anything to continue");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
 
-            var pathValidations = InputValidation.VerifyPath(args[1]);
+            LogGenerator convert = new LogGenerator(args[0], args[1]);
+            convert.GenerateCDNLog(args[0], args[1]);
 
-            if (pathValidations.Item2 == false)
-            {
-                Console.WriteLine(pathValidations.Item1);
-                Console.WriteLine("The application will be closed, press anything to continue");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-
-            if (InputValidation.VerifyUrl(args[0]))
-            {
-                Console.WriteLine("The URL is not valid. Please inform a valid one");
-                Console.WriteLine("The application will be closed, press anything to continue");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-            
-
-            if (convert.GenerateCDNLog(args[0], args[1]))
-            {
-                Console.WriteLine("sucessefuly converted");
-            }
         }
     }
 }

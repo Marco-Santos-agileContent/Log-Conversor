@@ -43,11 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="LogProperties.cs" />
     <Compile Include="MainMethods\Convertor.cs" />
     <Compile Include="MainMethods\LogGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validations\InputValidation.cs" />
+    <Compile Include="Validations\Helper.cs" />
+    <Compile Include="Validations\Helper.InputValidations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
